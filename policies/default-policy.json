@@ -1,0 +1,55 @@
+{
+  "Version":"2012-10-17",
+  "Statement":[
+     {
+        "Sid":"Cloudwatch Logs",
+        "Effect":"Allow",
+        "Action":[
+           "logs:CreateLogGroup",
+           "logs:CreateLogStream",
+           "logs:PutLogEvents",
+           "logs:DescribeLogStreams",
+           "logs:GetLogEvents",
+           "logs:FilterLogEvents"
+        ],
+        "Resource":"arn:aws:logs:*:*:log-group:/aws/lambda/*"
+     },
+     {
+        "Sid":"Cloudwatch Metrics",
+        "Effect":"Allow",
+        "Action":[
+           "cloudwatch:ListMetrics",
+           "cloudwatch:GetMetricData"
+        ],
+        "Resource":"*"
+     },
+     {
+        "Sid":"Lambda Pass Role",
+        "Effect":"Allow",
+        "Action":"iam:PassRole",
+        "Resource":"*",
+        "Condition":{
+           "StringEquals":{
+              "iam:PassedToService":"lambda.amazonaws.com"
+           }
+        }
+     },
+     {
+        "Sid":"Cloudfront lambda@edge Versioning Permissions",
+        "Effect":"Allow",
+        "Action":[
+           "acm:ListCertificates",
+           "cloudfront:DescribeFunction",
+           "cloudfront:Get*",
+           "cloudfront:List*",
+           "iam:ListServerCertificates",
+           "route53:List*",
+           "waf:ListWebACLs",
+           "waf:GetWebACL",
+           "wafv2:ListWebACLs",
+           "wafv2:GetWebACL"
+        ],
+        "Resource":"*"
+     }
+  ]
+}
